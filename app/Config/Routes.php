@@ -4,6 +4,7 @@ use App\Controllers\Home;
 use App\Controllers\Dashboard;
 use Myth\Auth\Config\Services;
 use CodeIgniter\Router\RouteCollection;
+use Myth\Auth\Config\Auth;
 
 /**
  * @var RouteCollection $routes
@@ -22,11 +23,13 @@ $routes->set404Override();
 $routes->setAutoRoute(false);
 
 
-$routes->get('/', 'Dashboard::index');
+$routes->get('/', 'Dashboard::index',  ['filter' => 'login']);
+
 $routes->post('/chart-penyewaan', 'Home::showChartPenyewaan');
 $routes->post('/chart-transaksi', 'Home::showChartTransaksi');
 $routes->get('countNamaUser', 'Home::countNamaUser');
 $routes->post('ajax/getFilteredData', 'Userad::getFilteredData');
+$routes->get('generate', 'Userad::generate');
 
 $routes->group('users', function ($r) {
     $r->get('/', 'Users::index');

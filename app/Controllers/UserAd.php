@@ -424,4 +424,29 @@ class UserAd extends BaseController
 
         return $this->response->setJSON($tableRows);
     }
+
+
+
+    public function generate()
+    {
+
+        $writer = new PngWriter();
+        // Create QR code
+        $qrCode = QrCode::create('https://smpannuralanwar.sch.id')
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(ErrorCorrectionLevel::Low)
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(RoundBlockSizeMode::Margin)
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+        $logo = Logo::create(FCPATH . '/logo.png')
+            ->setResizeToWidth(50)
+            ->setPunchoutBackground(false);
+
+
+        $result = $writer->write($qrCode, $logo);
+        $dataUri = $result->getDataUri();
+        echo '<img src="' . $dataUri . '" alt="www.smpannuralanwar.sch.id">';
+    }
 }

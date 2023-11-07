@@ -8,6 +8,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
+use Myth\Auth\Filters\LoginFilter;
 
 class Filters extends BaseConfig
 {
@@ -25,6 +26,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'login' => LoginFilter::class,
+        'role' => RoleFilter::class,
+        'permission' => PermissionFilter::class
     ];
 
     /**
@@ -34,16 +38,15 @@ class Filters extends BaseConfig
      * @var array<string, array<string, array<string, string>>>|array<string, array<string>>
      * @phpstan-var array<string, list<string>>|array<string, array<string, array<string, string>>>
      */
-    public array $globals = [
+    public $globals = [
         'before' => [
             // 'honeypot',
             // 'csrf',
-            // 'invalidchars',
+            //'login',
         ],
         'after' => [
             'toolbar',
             // 'honeypot',
-            // 'secureheaders',
         ],
     ];
 
